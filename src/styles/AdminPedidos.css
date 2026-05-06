@@ -1,0 +1,113 @@
+.admin-pedidos {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.admin-pedidos h1 {
+  font-size: 32px;
+  margin-bottom: 32px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.stat-valor {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pedidos-lista {
+  display: grid;
+  gap: 24px;
+}
+
+.pedido-card {
+  padding: 24px;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pedido-header h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.cliente-email {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.pedido-corpo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+}
+
+.pedido-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-linha {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.info-linha .label {
+  color: var(--text-secondary);
+  margin-right: 16px;
+}
+
+.info-linha.total {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.troco-destaque {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.pedido-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.pedido-acoes button {
+  font-size: 13px;
+  padding: 8px 16px;
+}

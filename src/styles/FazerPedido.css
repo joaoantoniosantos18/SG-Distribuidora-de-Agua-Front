@@ -1,0 +1,96 @@
+.fazer-pedido {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.pedido-container h1 {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+.produto-info {
+  margin-bottom: 32px;
+  padding: 24px;
+}
+
+.produto-info h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.produto-info p {
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.preco-unitario {
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.pedido-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  cursor: pointer;
+}
+
+.troco-info {
+  display: block;
+  margin-top: 8px;
+  color: var(--success);
+  font-weight: 500;
+}
+
+.resumo-pedido {
+  margin-top: 32px;
+  padding: 24px;
+}
+
+.resumo-pedido h3 {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.resumo-linha {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.resumo-linha:last-child {
+  border-bottom: none;
+}
+
+.resumo-linha.total {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 2px solid var(--border);
+}
+
+.erro-page {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--danger);
+}

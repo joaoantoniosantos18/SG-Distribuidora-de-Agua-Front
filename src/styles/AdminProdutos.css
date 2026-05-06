@@ -1,0 +1,107 @@
+.admin-produtos {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.header-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.header-acoes h1 {
+  font-size: 32px;
+}
+
+.form-container {
+  margin-bottom: 32px;
+  padding: 32px;
+}
+
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-acoes {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.produtos-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.produto-card {
+  padding: 24px;
+}
+
+.produto-header {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.produto-header h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.produto-header p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.badge-disponivel,
+.badge-indisponivel {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.badge-disponivel {
+  background: rgba(61, 214, 140, 0.1);
+  color: var(--success);
+}
+
+.badge-indisponivel {
+  background: rgba(244, 67, 54, 0.1);
+  color: var(--danger);
+}
+
+.produto-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.produto-footer .preco {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.produto-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.produto-acoes button {
+  font-size: 13px;
+  padding: 8px 16px;
+}

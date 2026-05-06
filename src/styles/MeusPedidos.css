@@ -1,0 +1,81 @@
+.meus-pedidos {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.meus-pedidos h1 {
+  font-size: 32px;
+  margin-bottom: 32px;
+}
+
+.pedidos-lista {
+  display: grid;
+  gap: 24px;
+}
+
+.pedido-card {
+  padding: 24px;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pedido-header h3 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-pendente {
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--warning);
+}
+
+.status-em_entrega {
+  background: rgba(79, 142, 247, 0.1);
+  color: var(--accent);
+}
+
+.status-entregue {
+  background: rgba(61, 214, 140, 0.1);
+  color: var(--success);
+}
+
+.pedido-detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detalhe-linha {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.detalhe-linha .label {
+  color: var(--text-secondary);
+}
+
+.detalhe-linha.total {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
