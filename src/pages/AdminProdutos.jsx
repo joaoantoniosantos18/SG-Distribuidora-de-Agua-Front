@@ -12,6 +12,8 @@ export default function AdminProdutos() {
   const [descricao, setDescricao] = useState('')
   const [preco, setPreco] = useState('')
   const [disponivel, setDisponivel] = useState(true)
+  const [imagem, setImagem] = useState(null)
+  const [previewImagem, setPreviewImagem] = useState(null)
 
   useEffect(() => {
     buscarProdutos()
@@ -33,26 +35,49 @@ export default function AdminProdutos() {
     setDescricao('')
     setPreco('')
     setDisponivel(true)
+    setImagem(null)
+    setPreviewImagem(null)
     setEditando(null)
     setMostrarForm(false)
+  }
+
+  const handleImagemChange = (e) => {
+    const arquivo = e.target.files[0]
+    if (arquivo) {
+      setImagem(arquivo)
+      // Cria preview da imagem
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setPreviewImagem(reader.result)
+      }
+      reader.readAsDataURL(arquivo)
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const dados = {
-      nome,
-      descricao,
-      preco: parseFloat(preco),
-      disponivel
+    // FormData permite enviar arquivos
+    const formData = new FormData()
+    formData.append('nome', nome)
+    formData.append('descricao', descricao)
+    formData.append('preco', preco)
+    formData.append('disponivel', disponivel)
+    
+    if (imagem) {
+      formData.append('imagem', imagem)
     }
 
     try {
       if (editando) {
-        await api.put(`/produtos/${editando}`, dados)
+        await api.put(`/produtos/${editando}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
         alert('Produto atualizado com sucesso!')
       } else {
-        await api.post('/produtos', dados)
+        await api.post('/produtos', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
         alert('Produto criado com sucesso!')
       }
       limparForm()
@@ -67,6 +92,7 @@ export default function AdminProdutos() {
     setDescricao(produto.descricao || '')
     setPreco(produto.preco.toString())
     setDisponivel(produto.disponivel)
+    setPreviewImagem(`http://localhost:3000${produto.imagemUrl}`)
     setEditando(produto._id)
     setMostrarForm(true)
   }
@@ -103,6 +129,20 @@ export default function AdminProdutos() {
         <div className="form-container card">
           <h2>{editando ? 'Editar Produto' : 'Novo Produto'}</h2>
           <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Imagem do produto</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImagemChange}
+              />
+              {previewImagem && (
+                <div className="preview-imagem">
+                  <img src={previewImagem} alt="Preview" />
+                </div>
+              )}
+            </div>
+
             <div className="form-group">
               <label>Nome do produto</label>
               <input
@@ -161,40 +201,43 @@ export default function AdminProdutos() {
         </div>
       )}
 
-      <div className="produtos-lista">
+      <div className="produtos-grid">
         {produtos.length === 0 ? (
           <div className="texto-vazio card">
             <p>Nenhum produto cadastrado ainda.</p>
           </div>
         ) : (
           produtos.map((produto) => (
-            <div key={produto._id} className="produto-card card">
-              <div className="produto-header">
-                <div>
-                  <h3>{produto.nome}</h3>
-                  {produto.descricao && <p>{produto.descricao}</p>}
-                </div>
+            <div key={produto._id} className="produto-admin-card card">
+              <div className="produto-imagem">
+                <img 
+                  src={`http://localhost:3000${produto.imagemUrl}`} 
+                  alt={produto.nome}
+                />
                 <span className={produto.disponivel ? 'badge-disponivel' : 'badge-indisponivel'}>
                   {produto.disponivel ? 'Disponível' : 'Indisponível'}
                 </span>
               </div>
-
-              <div className="produto-footer">
+              
+              <div className="produto-info">
+                <h3>{produto.nome}</h3>
+                {produto.descricao && <p>{produto.descricao}</p>}
                 <span className="preco">R$ {produto.preco.toFixed(2)}</span>
-                <div className="produto-acoes">
-                  <button
-                    className="btn-secondary"
-                    onClick={() => editarProduto(produto)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn-danger"
-                    onClick={() => deletarProduto(produto._id)}
-                  >
-                    Deletar
-                  </button>
-                </div>
+              </div>
+
+              <div className="produto-acoes">
+                <button
+                  className="btn-secondary"
+                  onClick={() => editarProduto(produto)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="btn-danger"
+                  onClick={() => deletarProduto(produto._id)}
+                >
+                  Deletar
+                </button>
               </div>
             </div>
           ))

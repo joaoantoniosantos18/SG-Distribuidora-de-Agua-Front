@@ -8,7 +8,6 @@ export default function Home() {
   const [carregando, setCarregando] = useState(true)
   const navigate = useNavigate()
 
-  // Busca os produtos quando a página carregar
   useEffect(() => {
     buscarProdutos()
   }, [])
@@ -40,19 +39,29 @@ export default function Home() {
           <p className="texto-vazio">Nenhum produto disponível no momento.</p>
         ) : (
           produtos.map((produto) => (
-            <div key={produto._id} className="produto-card">
-              <h3>{produto.nome}</h3>
-              <p className="produto-descricao">{produto.descricao}</p>
-              <div className="produto-footer">
-                <span className="produto-preco">
-                  R$ {produto.preco.toFixed(2)}
-                </span>
-                <button 
-                  className="btn-primary"
-                  onClick={() => navigate(`/fazer-pedido/${produto._id}`)}
-                >
-                  Pedir agora
-                </button>
+            <div key={produto._id} className="produto-card card">
+              <div className="produto-imagem">
+                <img 
+                  src={`http://localhost:3000${produto.imagemUrl}`} 
+                  alt={produto.nome}
+                />
+              </div>
+              
+              <div className="produto-conteudo">
+                <h3>{produto.nome}</h3>
+                <p className="produto-descricao">{produto.descricao}</p>
+                
+                <div className="produto-footer">
+                  <span className="produto-preco">
+                    R$ {produto.preco.toFixed(2)}
+                  </span>
+                  <button 
+                    className="btn-primary"
+                    onClick={() => navigate(`/fazer-pedido/${produto._id}`)}
+                  >
+                    Pedir agora
+                  </button>
+                </div>
               </div>
             </div>
           ))

@@ -1,22 +1,26 @@
 .admin-produtos {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 48px 32px;
 }
 
 .header-acoes {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .header-acoes h1 {
-  font-size: 32px;
+  font-size: 36px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .form-container {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   padding: 32px;
 }
 
@@ -31,77 +35,123 @@
   gap: 20px;
 }
 
+.preview-imagem {
+  margin-top: 16px;
+  width: 200px;
+  height: 200px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+}
+
+.preview-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .form-acoes {
   display: flex;
   gap: 12px;
   margin-top: 8px;
 }
 
-.produtos-lista {
+.produtos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
 }
 
-.produto-card {
-  padding: 24px;
+.produto-admin-card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.produto-header {
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
+.produto-admin-card .produto-imagem {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.produto-header h3 {
-  font-size: 20px;
-  margin-bottom: 8px;
-}
-
-.produto-header p {
-  color: var(--text-secondary);
-  font-size: 14px;
+.produto-admin-card .produto-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .badge-disponivel,
 .badge-indisponivel {
-  display: inline-block;
-  padding: 4px 12px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
   border-radius: 6px;
   font-size: 12px;
-  font-weight: 600;
-  margin-top: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
 }
 
 .badge-disponivel {
-  background: rgba(61, 214, 140, 0.1);
-  color: var(--success);
+  background: rgba(34, 197, 94, 0.9);
+  color: white;
 }
 
 .badge-indisponivel {
-  background: rgba(244, 67, 54, 0.1);
-  color: var(--danger);
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
 }
 
-.produto-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
+.produto-info {
+  padding: 20px;
+  flex: 1;
 }
 
-.produto-footer .preco {
+.produto-info h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.produto-info p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.produto-info .preco {
   font-size: 24px;
-  font-weight: 600;
-  color: var(--accent);
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .produto-acoes {
   display: flex;
   gap: 8px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
 }
 
 .produto-acoes button {
+  flex: 1;
   font-size: 13px;
-  padding: 8px 16px;
+  padding: 10px 16px;
+}
+
+.texto-vazio {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px;
 }
