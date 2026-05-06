@@ -58,3 +58,16 @@
   font-size: 14px;
   font-weight: 600;
 }
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.info-text {
+  display: block;
+  margin-top: 6px;
+  color: var(--azul-principal);
+  font-size: 13px;
+  font-weight: 600;
+}

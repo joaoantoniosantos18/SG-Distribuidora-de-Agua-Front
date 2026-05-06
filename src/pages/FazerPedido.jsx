@@ -11,10 +11,20 @@ export default function FazerPedido() {
 
   const [produto, setProduto] = useState(null)
   const [quantidade, setQuantidade] = useState(1)
-  const [enderecoEntrega, setEnderecoEntrega] = useState('')
+  
+  // Campos de endereço
+  const [cep, setCep] = useState('')
+  const [logradouro, setLogradouro] = useState('')
+  const [numero, setNumero] = useState('')
+  const [complemento, setComplemento] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [estado, setEstado] = useState('')
+  
   const [formaPagamento, setFormaPagamento] = useState('pix')
   const [precisaTroco, setPrecisaTroco] = useState(false)
   const [valorPagamento, setValorPagamento] = useState('')
+  const [buscandoCep, setBuscandoCep] = useState(false)
   const [carregando, setCarregando] = useState(true)
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState('')
@@ -24,8 +34,14 @@ export default function FazerPedido() {
   }, [id])
 
   useEffect(() => {
-    if (usuario) {
-      setEnderecoEntrega(usuario.endereco || '')
+    if (usuario && usuario.endereco) {
+      setCep(usuario.endereco.cep || '')
+      setLogradouro(usuario.endereco.logradouro || '')
+      setNumero(usuario.endereco.numero || '')
+      setComplemento(usuario.endereco.complemento || '')
+      setBairro(usuario.endereco.bairro || '')
+      setCidade(usuario.endereco.cidade || '')
+      setEstado(usuario.endereco.estado || '')
     }
   }, [usuario])
 
@@ -43,6 +59,50 @@ export default function FazerPedido() {
       setErro('Erro ao buscar produto')
     } finally {
       setCarregando(false)
+    }
+  }
+
+  const buscarCep = async (cepDigitado) => {
+    const cepLimpo = cepDigitado.replace(/\D/g, '')
+    
+    if (cepLimpo.length !== 8) return
+    
+    setBuscandoCep(true)
+    setErro('')
+    
+    try {
+      const resposta = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
+      const dados = await resposta.json()
+      
+      if (dados.erro) {
+        setErro('CEP não encontrado')
+        return
+      }
+      
+      setLogradouro(dados.logradouro)
+      setBairro(dados.bairro)
+      setCidade(dados.localidade)
+      setEstado(dados.uf)
+      
+      document.getElementById('numero-entrega').focus()
+    } catch (erro) {
+      setErro('Erro ao buscar CEP')
+    } finally {
+      setBuscandoCep(false)
+    }
+  }
+
+  const handleCepChange = (e) => {
+    let valor = e.target.value.replace(/\D/g, '')
+    
+    if (valor.length > 5) {
+      valor = valor.substring(0, 5) + '-' + valor.substring(5, 8)
+    }
+    
+    setCep(valor)
+    
+    if (valor.replace(/\D/g, '').length === 8) {
+      buscarCep(valor)
     }
   }
 
@@ -76,7 +136,13 @@ export default function FazerPedido() {
       await api.post('/pedidos', {
         produtoId: id,
         quantidade,
-        enderecoEntrega,
+        cep,
+        logradouro,
+        numero,
+        complemento,
+        bairro,
+        cidade,
+        estado,
         formaPagamento,
         precisaTroco,
         valorPagamento: precisaTroco ? parseFloat(valorPagamento) : 0
@@ -134,16 +200,88 @@ export default function FazerPedido() {
             />
           </div>
 
+          <h3 className="secao-titulo">Endereço de Entrega</h3>
+
           <div className="form-group">
-            <label>Endereço de entrega</label>
-            <textarea
-              value={enderecoEntrega}
-              onChange={(e) => setEnderecoEntrega(e.target.value)}
+            <label>CEP</label>
+            <input
+              type="text"
+              value={cep}
+              onChange={handleCepChange}
+              placeholder="00000-000"
+              maxLength={9}
               required
-              rows={3}
-              placeholder="Digite o endereço completo"
+            />
+            {buscandoCep && <small className="info-text">Buscando CEP...</small>}
+          </div>
+
+          <div className="form-row">
+            <div className="form-group" style={{flex: 3}}>
+              <label>Logradouro</label>
+              <input
+                type="text"
+                value={logradouro}
+                onChange={(e) => setLogradouro(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group" style={{flex: 1}}>
+              <label>Número</label>
+              <input
+                id="numero-entrega"
+                type="text"
+                value={numero}
+                onChange={(e) => setNumero(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Complemento (opcional)</label>
+            <input
+              type="text"
+              value={complemento}
+              onChange={(e) => setComplemento(e.target.value)}
+              placeholder="Apto, bloco, etc"
             />
           </div>
+
+          <div className="form-row">
+            <div className="form-group" style={{flex: 2}}>
+              <label>Bairro</label>
+              <input
+                type="text"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group" style={{flex: 2}}>
+              <label>Cidade</label>
+              <input
+                type="text"
+                value={cidade}
+                onChange={(e) => setCidade(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group" style={{flex: 1}}>
+              <label>UF</label>
+              <input
+                type="text"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value.toUpperCase())}
+                maxLength={2}
+                required
+              />
+            </div>
+          </div>
+
+          <h3 className="secao-titulo">Pagamento</h3>
 
           <div className="form-group">
             <label>Forma de pagamento</label>

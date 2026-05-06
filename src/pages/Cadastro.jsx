@@ -7,7 +7,17 @@ export default function Cadastro() {
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
-  const [endereco, setEndereco] = useState('')
+  
+  // Campos de endereço
+  const [cep, setCep] = useState('')
+  const [logradouro, setLogradouro] = useState('')
+  const [numero, setNumero] = useState('')
+  const [complemento, setComplemento] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [estado, setEstado] = useState('')
+  
+  const [buscandoCep, setBuscandoCep] = useState(false)
   const [erro, setErro] = useState('')
   const [sucesso, setSucesso] = useState(false)
   const [carregando, setCarregando] = useState(false)
@@ -15,16 +25,66 @@ export default function Cadastro() {
   const { cadastrar } = useContext(AuthContext)
   const navigate = useNavigate()
 
+  // Busca o CEP na API do ViaCEP
+  const buscarCep = async (cepDigitado) => {
+    // Remove tudo que não é número
+    const cepLimpo = cepDigitado.replace(/\D/g, '')
+    
+    // CEP tem que ter 8 dígitos
+    if (cepLimpo.length !== 8) return
+    
+    setBuscandoCep(true)
+    setErro('')
+    
+    try {
+      const resposta = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
+      const dados = await resposta.json()
+      
+      if (dados.erro) {
+        setErro('CEP não encontrado')
+        return
+      }
+      
+      // Preenche os campos automaticamente
+      setLogradouro(dados.logradouro)
+      setBairro(dados.bairro)
+      setCidade(dados.localidade)
+      setEstado(dados.uf)
+      
+      // Foca no campo de número
+      document.getElementById('numero').focus()
+    } catch (erro) {
+      setErro('Erro ao buscar CEP')
+    } finally {
+      setBuscandoCep(false)
+    }
+  }
+
+  const handleCepChange = (e) => {
+    let valor = e.target.value.replace(/\D/g, '')
+    
+    // Formata o CEP: 12345-678
+    if (valor.length > 5) {
+      valor = valor.substring(0, 5) + '-' + valor.substring(5, 8)
+    }
+    
+    setCep(valor)
+    
+    // Se tiver 8 números, busca automaticamente
+    if (valor.replace(/\D/g, '').length === 8) {
+      buscarCep(valor)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setErro('')
     setCarregando(true)
 
-    const resultado = await cadastrar(nome, email, senha, endereco)
+    const resultado = await cadastrar(nome, email, senha, cep, logradouro, numero, complemento, bairro, cidade, estado)
 
     if (resultado.sucesso) {
       setSucesso(true)
-      // Redireciona para o login após 2 segundos
       setTimeout(() => navigate('/login'), 2000)
     } else {
       setErro(resultado.mensagem)
@@ -85,13 +145,81 @@ export default function Cadastro() {
           </div>
 
           <div className="form-group">
-            <label>Endereço</label>
-            <textarea
-              value={endereco}
-              onChange={(e) => setEndereco(e.target.value)}
+            <label>CEP</label>
+            <input
+              type="text"
+              value={cep}
+              onChange={handleCepChange}
+              placeholder="00000-000"
+              maxLength={9}
               required
-              rows={3}
             />
+            {buscandoCep && <small className="info-text">Buscando CEP...</small>}
+          </div>
+
+          <div className="form-row">
+            <div className="form-group" style={{flex: 3}}>
+              <label>Logradouro</label>
+              <input
+                type="text"
+                value={logradouro}
+                onChange={(e) => setLogradouro(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group" style={{flex: 1}}>
+              <label>Número</label>
+              <input
+                id="numero"
+                type="text"
+                value={numero}
+                onChange={(e) => setNumero(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Complemento (opcional)</label>
+            <input
+              type="text"
+              value={complemento}
+              onChange={(e) => setComplemento(e.target.value)}
+            />
+          </div>
+
+          <div className="form-row">
+            <div className="form-group" style={{flex: 2}}>
+              <label>Bairro</label>
+              <input
+                type="text"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group" style={{flex: 2}}>
+              <label>Cidade</label>
+              <input
+                type="text"
+                value={cidade}
+                onChange={(e) => setCidade(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group" style={{flex: 1}}>
+              <label>UF</label>
+              <input
+                type="text"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value.toUpperCase())}
+                maxLength={2}
+                required
+              />
+            </div>
           </div>
 
           <button 

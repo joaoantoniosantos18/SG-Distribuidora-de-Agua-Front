@@ -7,7 +7,6 @@ export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null)
   const [carregando, setCarregando] = useState(true)
 
-  // Quando o componente montar, verifica se tem usuário logado
   useEffect(() => {
     const usuarioSalvo = localStorage.getItem('usuario')
     const tokenSalvo = localStorage.getItem('token')
@@ -37,10 +36,20 @@ export function AuthProvider({ children }) {
     }
   }
 
-
-  const cadastrar = async (nome, email, senha, endereco) => {
+  const cadastrar = async (nome, email, senha, cep, logradouro, numero, complemento, bairro, cidade, estado) => {
     try {
-      await api.post('/auth/cadastro', { nome, email, senha, endereco })
+      await api.post('/auth/cadastro', { 
+        nome, 
+        email, 
+        senha, 
+        cep,
+        logradouro,
+        numero,
+        complemento,
+        bairro,
+        cidade,
+        estado
+      })
       return { sucesso: true }
     } catch (erro) {
       return { 
@@ -56,7 +65,6 @@ export function AuthProvider({ children }) {
     setUsuario(null)
   }
 
-  // Disponibiliza tudo isso para os componentes filhos
   return (
     <AuthContext.Provider value={{ usuario, login, cadastrar, logout, carregando }}>
       {children}
