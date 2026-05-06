@@ -1,113 +1,124 @@
 .admin-pedidos {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 60px 32px;
 }
 
 .admin-pedidos h1 {
-  font-size: 32px;
-  margin-bottom: 32px;
+  font-size: 42px;
+  margin-bottom: 48px;
+  color: var(--azul-principal);
+  font-weight: 800;
 }
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
-  margin-bottom: 48px;
+  margin-bottom: 60px;
 }
 
 .stat-card {
-  padding: 24px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  background: linear-gradient(135deg, var(--bg-principal) 0%, var(--cinza-100) 100%);
+  border: 2px solid var(--cinza-200);
 }
 
 .stat-label {
-  color: var(--text-secondary);
+  color: var(--texto-secundario);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .stat-valor {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--text-primary);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--azul-principal);
 }
 
 .pedidos-lista {
   display: grid;
-  gap: 24px;
+  gap: 28px;
 }
 
 .pedido-card {
-  padding: 24px;
+  padding: 32px;
+  border: 2px solid var(--cinza-200);
 }
 
 .pedido-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--cinza-100);
 }
 
 .pedido-header h3 {
-  font-size: 18px;
-  margin-bottom: 4px;
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: var(--texto-principal);
+  font-weight: 700;
 }
 
 .cliente-email {
-  color: var(--text-secondary);
-  font-size: 14px;
+  color: var(--texto-secundario);
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .pedido-corpo {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 24px;
+  gap: 32px;
 }
 
 .pedido-info {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .info-linha {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .info-linha .label {
-  color: var(--text-secondary);
-  margin-right: 16px;
+  color: var(--texto-secundario);
+  margin-right: 20px;
 }
 
 .info-linha.total {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--accent);
-  margin-top: 8px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--azul-principal);
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 2px solid var(--cinza-100);
 }
 
 .troco-destaque {
-  color: var(--success);
-  font-weight: 600;
+  color: var(--verde);
+  font-weight: 700;
 }
 
 .pedido-acoes {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  min-width: 120px;
+  gap: 10px;
+  min-width: 140px;
 }
 
 .pedido-acoes button {
-  font-size: 13px;
-  padding: 8px 16px;
+  font-size: 14px;
+  padding: 10px 18px;
 }
