@@ -1,31 +1,31 @@
 .home {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 32px;
+  padding: 60px 32px;
 }
 
 .home-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .home-header h1 {
-  font-size: 64px;
-  margin-bottom: 20px;
+  font-size: 48px;
+  margin-bottom: 16px;
   color: var(--azul-principal);
   font-weight: 800;
 }
 
 .home-header p {
   color: var(--texto-secundario);
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 500;
 }
 
 .produtos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
 }
 
 .produto-card {
@@ -38,52 +38,53 @@
 }
 
 .produto-card:hover {
-  transform: translateY(-12px);
+  transform: translateY(-8px);
   border-color: var(--azul-principal);
   box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
 }
 
 .produto-imagem {
   width: 100%;
-  height: 280px;
+  height: 200px;
   overflow: hidden;
   background: linear-gradient(135deg, var(--azul-muito-claro) 0%, var(--cinza-100) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 16px;
 }
 
 .produto-imagem img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.4s ease;
 }
 
 .produto-card:hover .produto-imagem img {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .produto-conteudo {
-  padding: 28px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .produto-conteudo h3 {
-  font-size: 24px;
-  margin-bottom: 12px;
+  font-size: 18px;
+  margin-bottom: 8px;
   color: var(--texto-principal);
   font-weight: 700;
 }
 
 .produto-descricao {
   color: var(--texto-secundario);
-  font-size: 15px;
-  margin-bottom: 24px;
-  min-height: 48px;
-  line-height: 1.7;
+  font-size: 14px;
+  margin-bottom: 16px;
+  min-height: 40px;
+  line-height: 1.6;
   flex: 1;
 }
 
@@ -91,22 +92,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 24px;
+  padding-top: 16px;
   border-top: 2px solid var(--cinza-100);
   margin-top: auto;
 }
 
 .produto-preco {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--azul-principal);
+}
+
+.produto-footer .btn-primary {
+  padding: 10px 20px;
+  font-size: 14px;
 }
 
 .texto-vazio {
   grid-column: 1 / -1;
   text-align: center;
   color: var(--texto-secundario);
-  padding: 80px 32px;
+  padding: 60px 32px;
   font-size: 18px;
   font-weight: 500;
 }

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import Navbar from './components/Navbar'
 import RotaProtegida from './components/RotaProtegida'
@@ -18,9 +18,21 @@ export default function App() {
         <Navbar />
         <div className="app-container">
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* Redireciona a raiz para o login */}
+            <Route path="/" element={<Navigate to="/login" />} />
+            
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
+            
+            {/* Produtos disponíveis - rota protegida */}
+            <Route 
+              path="/produtos" 
+              element={
+                <RotaProtegida>
+                  <Home />
+                </RotaProtegida>
+              } 
+            />
             
             <Route 
               path="/fazer-pedido/:id" 

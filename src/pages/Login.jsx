@@ -20,12 +20,11 @@ export default function Login() {
     const resultado = await login(email, senha)
 
     if (resultado.sucesso) {
-      // Redireciona baseado no role do usuário
       const usuario = JSON.parse(localStorage.getItem('usuario'))
       if (usuario.role === 'admin') {
         navigate('/admin')
       } else {
-        navigate('/meus-pedidos')
+        navigate('/produtos') // MUDOU AQUI - cliente vai pra produtos
       }
     } else {
       setErro(resultado.mensagem)

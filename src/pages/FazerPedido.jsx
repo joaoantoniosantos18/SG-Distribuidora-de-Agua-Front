@@ -5,7 +5,7 @@ import api from '../services/api'
 import '../styles/FazerPedido.css'
 
 export default function FazerPedido() {
-  const { id } = useParams() // pega o ID do produto da URL
+  const { id } = useParams()
   const { usuario } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -19,12 +19,10 @@ export default function FazerPedido() {
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState('')
 
-  // Busca o produto quando a página carregar
   useEffect(() => {
     buscarProduto()
   }, [id])
 
-  // Preenche o endereço do usuário logado
   useEffect(() => {
     if (usuario) {
       setEnderecoEntrega(usuario.endereco || '')
@@ -65,7 +63,6 @@ export default function FazerPedido() {
     setErro('')
     setEnviando(true)
 
-    // Validação do valor de pagamento se precisar de troco
     if (precisaTroco) {
       const total = calcularTotal()
       if (!valorPagamento || parseFloat(valorPagamento) < total) {
@@ -107,12 +104,20 @@ export default function FazerPedido() {
       <div className="pedido-container">
         <h1>Fazer Pedido</h1>
 
-        <div className="produto-info card">
-          <h2>{produto.nome}</h2>
-          <p>{produto.descricao}</p>
-          <p className="preco-unitario">
-            Preço unitário: <strong>R$ {produto.preco.toFixed(2)}</strong>
-          </p>
+        <div className="produto-info-completa card">
+          <div className="produto-info-imagem">
+            <img 
+              src={`http://localhost:3000${produto.imagemUrl}`} 
+              alt={produto.nome}
+            />
+          </div>
+          <div className="produto-info-texto">
+            <h2>{produto.nome}</h2>
+            <p>{produto.descricao}</p>
+            <p className="preco-unitario">
+              Preço unitário: <strong>R$ {produto.preco.toFixed(2)}</strong>
+            </p>
+          </div>
         </div>
 
         {erro && <div className="erro-msg">{erro}</div>}
@@ -136,6 +141,7 @@ export default function FazerPedido() {
               onChange={(e) => setEnderecoEntrega(e.target.value)}
               required
               rows={3}
+              placeholder="Digite o endereço completo"
             />
           </div>
 
