@@ -13,32 +13,79 @@
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
   margin-bottom: 40px;
 }
 
 .stat-card {
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background: linear-gradient(135deg, var(--bg-principal) 0%, var(--cinza-100) 100%);
-  border: 2px solid var(--cinza-200);
+  gap: 12px;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-xl);
+}
+
+/* Card Total de Pedidos - Azul */
+.stat-card:nth-child(1) {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-color: #93c5fd;
+}
+
+.stat-card:nth-child(1) .stat-valor {
+  color: #1e40af;
+}
+
+/* Card Pendentes - Amarelo */
+.stat-card:nth-child(2) {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-color: #fcd34d;
+}
+
+.stat-card:nth-child(2) .stat-valor {
+  color: #92400e;
+}
+
+/* Card Em Entrega - Azul mais escuro */
+.stat-card:nth-child(3) {
+  background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%);
+  border-color: #60a5fa;
+}
+
+.stat-card:nth-child(3) .stat-valor {
+  color: #1e3a8a;
+}
+
+/* Card Entregues - Verde */
+.stat-card:nth-child(4) {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-color: #6ee7b7;
+}
+
+.stat-card:nth-child(4) .stat-valor {
+  color: #065f46;
 }
 
 .stat-label {
   color: var(--texto-secundario);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
 }
 
 .stat-valor {
-  font-size: 36px;
+  font-size: 48px;
   font-weight: 800;
-  color: var(--azul-principal);
+  line-height: 1;
 }
 
 .pedidos-lista {
@@ -71,6 +118,30 @@
   color: var(--texto-secundario);
   font-size: 14px;
   font-weight: 500;
+}
+
+.status {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pendente {
+  background: var(--amarelo-claro);
+  color: #92400e;
+}
+
+.status-em_entrega {
+  background: var(--azul-claro);
+  color: #1e40af;
+}
+
+.status-entregue {
+  background: var(--verde-claro);
+  color: #065f46;
 }
 
 .pedido-corpo {
