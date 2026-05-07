@@ -284,8 +284,4 @@ Este projeto foi desenvolvido para fins educacionais.
 
 ---
 
-## 👨‍💻 Autor
-
-Desenvolvido durante o aprendizado de React e integração com APIs.
-
 **Repositório Backend:** [distribuidora-back](https://github.com/seu-usuario/distribuidora-back)
