@@ -205,3 +205,108 @@
   font-size: 13px;
   padding: 8px 14px;
 }
+/* ==================== TOAST ==================== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  animation: slideIn 0.3s ease;
+  max-width: 360px;
+}
+
+.toast-sucesso {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.toast-erro {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.toast-fechar {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  color: inherit;
+  opacity: 0.6;
+  min-width: auto;
+}
+
+.toast-fechar:hover {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+
+/* ==================== RESPONSIVIDADE MOBILE ==================== */
+@media (max-width: 768px) {
+  .admin-pedidos {
+    padding: 24px 16px;
+  }
+
+  .admin-pedidos h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-valor {
+    font-size: 32px;
+  }
+
+  .pedido-corpo {
+    grid-template-columns: 1fr;
+  }
+
+  .pedido-acoes {
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: unset;
+  }
+
+  .pedido-acoes button {
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .pedido-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .toast {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    max-width: unset;
+  }
+}

@@ -73,3 +73,39 @@
 .navbar-menu .btn-secondary {
   padding: 10px 20px;
 }
+/* ==================== RESPONSIVIDADE MOBILE ==================== */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 16px;
+  }
+
+  .navbar-logo {
+    font-size: 18px;
+  }
+
+  .navbar-menu {
+    gap: 8px;
+  }
+
+  .navbar-link {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .navbar-user {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .navbar-menu .btn-primary,
+  .navbar-menu .btn-secondary {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-user {
+    display: none;
+  }
+}

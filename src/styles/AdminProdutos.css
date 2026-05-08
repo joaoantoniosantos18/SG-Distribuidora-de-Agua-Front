@@ -186,3 +186,20 @@
   font-size: 16px;
   font-weight: 500;
 }
+/* ==================== RESPONSIVIDADE MOBILE ==================== */
+@media (max-width: 768px) {
+  .admin-produtos {
+    padding: 24px 16px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 16px;
+  }
+
+  .produtos-grid {
+    grid-template-columns: 1fr;
+  }
+}
