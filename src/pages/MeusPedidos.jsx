@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import api from '../services/api'
 import '../styles/MeusPedidos.css'
 
 export default function MeusPedidos() {
   const [pedidos, setPedidos] = useState([])
   const [carregando, setCarregando] = useState(true)
+  const [mensagemSucesso, setMensagemSucesso] = useState(null)
+  const location = useLocation()
 
   useEffect(() => {
     buscarMeusPedidos()
+    if (location.state?.sucesso) {
+      setMensagemSucesso(location.state.sucesso)
+      setTimeout(() => setMensagemSucesso(null), 4000)
+    }
   }, [])
 
   const buscarMeusPedidos = async () => {
@@ -55,6 +62,12 @@ export default function MeusPedidos() {
 
   return (
     <div className="meus-pedidos">
+      {mensagemSucesso && (
+        <div className="toast toast-sucesso">
+          <span>{mensagemSucesso}</span>
+          <button className="toast-fechar" onClick={() => setMensagemSucesso(null)}>×</button>
+        </div>
+      )}
       <h1>Meus Pedidos</h1>
 
       {pedidos.length === 0 ? (

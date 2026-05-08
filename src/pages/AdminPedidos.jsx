@@ -2,9 +2,30 @@ import { useState, useEffect } from 'react'
 import api from '../services/api'
 import '../styles/AdminPedidos.css'
 
+function Toast({ mensagem, tipo, onFechar }) {
+  useEffect(() => {
+    const timer = setTimeout(onFechar, 3500)
+    return () => clearTimeout(timer)
+  }, [onFechar])
+
+  return (
+    <div className={`toast toast-${tipo}`}>
+      <span>{mensagem}</span>
+      <button className="toast-fechar" onClick={onFechar}>×</button>
+    </div>
+  )
+}
+
 export default function AdminPedidos() {
   const [pedidos, setPedidos] = useState([])
   const [carregando, setCarregando] = useState(true)
+  const [toast, setToast] = useState(null)
+
+  const mostrarToast = (mensagem, tipo = 'sucesso') => {
+    setToast({ mensagem, tipo })
+  }
+
+  const fecharToast = () => setToast(null)
 
   useEffect(() => {
     buscarTodosPedidos()
@@ -24,10 +45,10 @@ export default function AdminPedidos() {
   const atualizarStatus = async (pedidoId, novoStatus) => {
     try {
       await api.put(`/pedidos/${pedidoId}/status`, { status: novoStatus })
-      // Atualiza a lista
+      mostrarToast(`Status atualizado para "${traduzirStatus(novoStatus)}"`)
       buscarTodosPedidos()
     } catch (erro) {
-      alert('Erro ao atualizar status')
+      mostrarToast('Erro ao atualizar status', 'erro')
     }
   }
 
@@ -73,6 +94,13 @@ export default function AdminPedidos() {
 
   return (
     <div className="admin-pedidos">
+      {toast && (
+        <Toast
+          mensagem={toast.mensagem}
+          tipo={toast.tipo}
+          onFechar={fecharToast}
+        />
+      )}
       <h1>Gerenciar Pedidos</h1>
 
       <div className="stats-grid">

@@ -148,8 +148,7 @@ export default function FazerPedido() {
         valorPagamento: precisaTroco ? parseFloat(valorPagamento) : 0
       })
 
-      alert('Pedido realizado com sucesso!')
-      navigate('/meus-pedidos')
+      navigate('/meus-pedidos', { state: { sucesso: 'Pedido realizado com sucesso! 🎉' } })
     } catch (erro) {
       setErro(erro.response?.data?.mensagem || 'Erro ao criar pedido')
     } finally {
