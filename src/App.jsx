@@ -9,8 +9,7 @@ import Login from './pages/Login'
 import Cadastro from './pages/Cadastro'
 import FazerPedido from './pages/FazerPedido'
 import MeusPedidos from './pages/MeusPedidos'
-import AdminPedidos from './pages/AdminPedidos'
-import AdminProdutos from './pages/AdminProdutos'
+import AdminPainel from './pages/AdminPainel'
 
 export default function App() {
   return (
@@ -33,12 +32,14 @@ export default function App() {
               <Route path="/meus-pedidos" element={
                 <RotaProtegida><MeusPedidos /></RotaProtegida>
               } />
+
+              {/* Painel admin — tudo numa página só com abas */}
               <Route path="/admin" element={
-                <RotaProtegida apenasAdmin={true}><AdminPedidos /></RotaProtegida>
+                <RotaProtegida apenasAdmin={true}><AdminPainel /></RotaProtegida>
               } />
-              <Route path="/admin/produtos" element={
-                <RotaProtegida apenasAdmin={true}><AdminProdutos /></RotaProtegida>
-              } />
+
+              {/* Redireciona /admin/produtos para /admin (a aba está lá dentro) */}
+              <Route path="/admin/produtos" element={<Navigate to="/admin" />} />
             </Routes>
           </div>
         </BrowserRouter>

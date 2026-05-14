@@ -1,0 +1,73 @@
+.admin-painel {
+  min-height: calc(100vh - 70px);
+}
+
+/* ── Barra de abas ───────────────────────────────── */
+.abas-container {
+  background: var(--bg-principal);
+  border-bottom: 2px solid var(--cinza-200);
+  position: sticky;
+  top: 70px; /* fica logo abaixo da navbar */
+  z-index: 50;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.abas-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  gap: 4px;
+}
+
+.aba-btn {
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto-secundario);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  margin-bottom: -2px; /* sobrepõe o border-bottom do container */
+  box-shadow: none;
+}
+
+.aba-btn:hover {
+  color: var(--azul-principal);
+  transform: none;
+}
+
+.aba-ativa {
+  color: var(--azul-principal) !important;
+  border-bottom-color: var(--azul-principal) !important;
+}
+
+/* ── Área de conteúdo ────────────────────────────── */
+.aba-conteudo {
+  background: var(--bg-secundario);
+  min-height: calc(100vh - 70px - 55px);
+  transition: background 0.25s ease;
+}
+
+/* ── Responsividade mobile ───────────────────────── */
+@media (max-width: 768px) {
+  .abas-nav {
+    padding: 0 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .abas-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .aba-btn {
+    padding: 14px 16px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+}
