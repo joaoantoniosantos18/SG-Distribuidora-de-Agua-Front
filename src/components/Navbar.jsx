@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import { ThemeContext } from '../context/ThemeContext'
 import '../styles/Navbar.css'
 
 export default function Navbar() {
   const { usuario, logout } = useContext(AuthContext)
+  const { tema, alternarTema } = useContext(ThemeContext)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -13,7 +15,6 @@ export default function Navbar() {
     navigate('/login')
   }
 
-  // Verifica se está na página de login ou cadastro
   const estaNaPaginaAuth = location.pathname === '/login' || location.pathname === '/cadastro'
 
   return (
@@ -26,7 +27,6 @@ export default function Navbar() {
         <div className="navbar-menu">
           {!usuario ? (
             <>
-              {/* Só mostra os botões se NÃO estiver na página de login/cadastro */}
               {!estaNaPaginaAuth && (
                 <>
                   <Link to="/login" className="navbar-link">Login</Link>
@@ -37,7 +37,7 @@ export default function Navbar() {
           ) : (
             <>
               <span className="navbar-user">Olá, {usuario.nome}</span>
-              
+
               {usuario.role === 'admin' ? (
                 <>
                   <Link to="/admin" className="navbar-link">Pedidos</Link>
@@ -55,6 +55,16 @@ export default function Navbar() {
               </button>
             </>
           )}
+
+          {/* Botão de alternar tema — sempre visível */}
+          <button
+            className="btn-tema"
+            onClick={alternarTema}
+            title={tema === 'claro' ? 'Mudar para modo escuro' : 'Mudar para modo claro'}
+            aria-label={tema === 'claro' ? 'Ativar modo escuro' : 'Ativar modo claro'}
+          >
+            {tema === 'claro' ? '🌙' : '☀️'}
+          </button>
         </div>
       </div>
     </nav>
