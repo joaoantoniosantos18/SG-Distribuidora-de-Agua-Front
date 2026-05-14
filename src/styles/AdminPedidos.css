@@ -1,5 +1,5 @@
 .admin-pedidos {
-  max-width: 1600px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 48px 32px;
 }
@@ -11,83 +11,48 @@
   font-weight: 800;
 }
 
+/* ── Cards de estatísticas ──────────────────────────────── */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
   margin-bottom: 40px;
 }
 
 .stat-card {
-  padding: 28px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   border: none;
   border-radius: 16px;
-  transition: all 0.3s ease;
   box-shadow: var(--sombra-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: var(--sombra-xl);
 }
 
-/* Card Total de Pedidos - Azul */
-.stat-card:nth-child(1) {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-}
+.stat-card:nth-child(1) { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+.stat-card:nth-child(1) .stat-label,
+.stat-card:nth-child(1) .stat-valor { color: #1e40af; }
 
-.stat-card:nth-child(1) .stat-label {
-  color: #1e40af;
-}
+.stat-card:nth-child(2) { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+.stat-card:nth-child(2) .stat-label,
+.stat-card:nth-child(2) .stat-valor { color: #92400e; }
 
-.stat-card:nth-child(1) .stat-valor {
-  color: #1e40af;
-}
+.stat-card:nth-child(3) { background: linear-gradient(135deg, #dbeafe, #93c5fd); }
+.stat-card:nth-child(3) .stat-label,
+.stat-card:nth-child(3) .stat-valor { color: #1e3a8a; }
 
-/* Card Pendentes - Amarelo */
-.stat-card:nth-child(2) {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-}
-
-.stat-card:nth-child(2) .stat-label {
-  color: #92400e;
-}
-
-.stat-card:nth-child(2) .stat-valor {
-  color: #92400e;
-}
-
-/* Card Em Entrega - Azul mais escuro */
-.stat-card:nth-child(3) {
-  background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%);
-}
-
-.stat-card:nth-child(3) .stat-label {
-  color: #1e3a8a;
-}
-
-.stat-card:nth-child(3) .stat-valor {
-  color: #1e3a8a;
-}
-
-/* Card Entregues - Verde */
-.stat-card:nth-child(4) {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-}
-
-.stat-card:nth-child(4) .stat-label {
-  color: #065f46;
-}
-
-.stat-card:nth-child(4) .stat-valor {
-  color: #065f46;
-}
+.stat-card:nth-child(4) { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+.stat-card:nth-child(4) .stat-label,
+.stat-card:nth-child(4) .stat-valor { color: #065f46; }
 
 .stat-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -95,117 +60,219 @@
 }
 
 .stat-valor {
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 800;
   line-height: 1;
 }
 
+/* ── Lista de pedidos ───────────────────────────────────── */
 .pedidos-lista {
-  display: grid;
-  gap: 20px;
-}
-
-.pedido-card {
-  padding: 20px;
-  border: 2px solid var(--cinza-200);
-}
-
-.pedido-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid var(--cinza-100);
-}
-
-.pedido-header h3 {
-  font-size: 18px;
-  margin-bottom: 6px;
-  color: var(--texto-principal);
-  font-weight: 700;
-}
-
-.cliente-email {
-  color: var(--texto-secundario);
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.status {
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.status-pendente {
-  background: var(--amarelo-claro);
-  color: #92400e;
-}
-
-.status-em_entrega {
-  background: var(--azul-claro);
-  color: #1e40af;
-}
-
-.status-entregue {
-  background: var(--verde-claro);
-  color: #065f46;
-}
-
-.pedido-corpo {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-}
-
-.pedido-info {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.info-linha {
+/* ── Card (accordion) ───────────────────────────────────── */
+.pedido-card {
+  padding: 0;
+  border: 1.5px solid var(--cinza-200);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pedido-card.aberto {
+  border-color: var(--azul-principal);
+  box-shadow: 0 0 0 3px var(--azul-muito-claro);
+}
+
+/* Linha sempre visível — é um botão para acessibilidade */
+.pedido-linha {
+  width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--fonte);
+  border-radius: 0;
+  transition: background 0.15s ease;
+}
+
+.pedido-linha:hover {
+  background: var(--cinza-100);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Info esquerda */
+.pedido-linha-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.pedido-cliente-nome {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--texto-principal);
+  white-space: nowrap;
+}
+
+.pedido-linha-sep {
+  color: var(--cinza-400);
   font-size: 14px;
+}
+
+.pedido-linha-produto {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texto-secundario);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pedido-linha-qtd {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cinza-500);
+  background: var(--cinza-100);
+  padding: 2px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+/* Direita: total + status + seta */
+.pedido-linha-direita {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.pedido-linha-total {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--azul-principal);
+  white-space: nowrap;
+}
+
+/* Badges de status */
+.status {
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.status-pendente  { background: var(--amarelo-claro); color: #92400e; }
+.status-em_entrega { background: var(--azul-claro);   color: #1e40af; }
+.status-entregue  { background: var(--verde-claro);   color: #065f46; }
+
+/* Seta */
+.seta {
+  font-size: 18px;
+  color: var(--cinza-400);
+  display: inline-block;
+  transition: transform 0.25s ease;
+  line-height: 1;
+}
+
+.seta-aberta {
+  transform: rotate(180deg);
+}
+
+/* ── Detalhes expansíveis ───────────────────────────────── */
+.pedido-detalhes {
+  border-top: 1.5px solid var(--cinza-200);
+  padding: 20px;
+  background: var(--bg-secundario);
+  animation: abrirDetalhes 0.2s ease;
+}
+
+@keyframes abrirDetalhes {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pedido-detalhes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.detalhe-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detalhe-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--cinza-400);
+}
+
+.detalhe-grupo span:not(.detalhe-label):not(.detalhe-sub) {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto-principal);
+}
+
+.detalhe-sub {
+  font-size: 12px;
+  color: var(--texto-secundario);
   font-weight: 500;
 }
 
-.info-linha .label {
-  color: var(--texto-secundario);
-  margin-right: 16px;
-}
-
-.info-linha.total {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--azul-principal);
-  margin-top: 8px;
-  padding-top: 12px;
-  border-top: 2px solid var(--cinza-100);
+.detalhe-total {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: var(--azul-principal) !important;
 }
 
 .troco-destaque {
-  color: var(--verde);
-  font-weight: 700;
+  color: var(--verde) !important;
+  font-weight: 700 !important;
 }
 
+/* Botões de ação */
 .pedido-acoes {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 120px;
+  align-items: center;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cinza-200);
+  flex-wrap: wrap;
+}
+
+.acoes-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-secundario);
+  margin-right: 4px;
 }
 
 .pedido-acoes button {
   font-size: 13px;
-  padding: 8px 14px;
+  padding: 8px 16px;
 }
-/* ==================== TOAST ==================== */
+
+/* ── Toast ──────────────────────────────────────────────── */
 .toast {
   position: fixed;
   bottom: 24px;
@@ -223,17 +290,8 @@
   max-width: 360px;
 }
 
-.toast-sucesso {
-  background: #d1fae5;
-  color: #065f46;
-  border: 1px solid #6ee7b7;
-}
-
-.toast-erro {
-  background: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #fca5a5;
-}
+.toast-sucesso { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.toast-erro    { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 
 .toast-fechar {
   background: none;
@@ -247,17 +305,14 @@
   min-width: auto;
 }
 
-.toast-fechar:hover {
-  opacity: 1;
-  transform: none;
-}
+.toast-fechar:hover { opacity: 1; transform: none; }
 
 @keyframes slideIn {
   from { transform: translateY(20px); opacity: 0; }
   to   { transform: translateY(0);   opacity: 1; }
 }
 
-/* ==================== RESPONSIVIDADE MOBILE ==================== */
+/* ── Responsividade mobile ──────────────────────────────── */
 @media (max-width: 768px) {
   .admin-pedidos {
     padding: 24px 16px;
@@ -274,33 +329,26 @@
     margin-bottom: 24px;
   }
 
-  .stat-card {
-    padding: 16px;
+  .stat-card { padding: 16px; }
+  .stat-valor { font-size: 32px; }
+
+  .pedido-linha {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .stat-valor {
-    font-size: 32px;
+  .pedido-linha-direita {
+    width: 100%;
+    justify-content: space-between;
   }
 
-  .pedido-corpo {
-    grid-template-columns: 1fr;
+  .pedido-detalhes-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .pedido-acoes {
-    flex-direction: row;
-    flex-wrap: wrap;
-    min-width: unset;
-  }
-
-  .pedido-acoes button {
-    flex: 1;
-    min-width: 80px;
-  }
-
-  .pedido-header {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .toast {
